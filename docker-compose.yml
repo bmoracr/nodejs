@@ -1,0 +1,35 @@
+#To set the current docker-compose sintax that will use
+version: '3'
+#To put set all services inside
+services:
+  #First service called "server"
+  server:
+    #To set container name
+    container_name: server
+    #Restart all services always it has an error
+    restart: always
+    #To start all Dockerfile settings wrote in docker-composer file, set . cause is the current docker-compose file folder
+    build: .
+    #point external port 5000 to 3000 internal(container) port
+    ports:
+      - "5000:3000"
+    #To connect server service with database service 
+    links:
+      - database
+    #Runtime copy all files of server into the app container path
+    volumes:
+      - ./server:/usr/src/app
+    logging:
+      driver: none 
+  #Seccond services called "database"
+  database:
+    #To set container name
+    container_name: database
+    #To set an image of the service that docker will install and use
+    image: mongo
+    #point external port 27018 to 27017 internal(container) port
+    ports:
+      - "27018:27017"
+    #To hide all mongodb/database services los
+    logging:
+      driver: none 
