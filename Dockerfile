@@ -1,3 +1,5 @@
+#Set what jenkins version use
+FROM jenkins/jenkins:lts
 #Set what node version use
 FROM node:17-alpine
 #Creates /usr/src/app path container inside (-p) create the folders if it dosent exists

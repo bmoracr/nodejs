@@ -33,3 +33,15 @@ services:
     #To hide all mongodb/database services los
     logging:
       driver: none 
+  #Third service called "jenkins"
+  jenkins:
+    # To knows the workdir for jenkins builded
+    build:
+      context: .
+    #point external port 50000 to 50000 internal(container) port
+    ports:
+      - 80:8080
+      - 50000:50000
+    #Runtime copy all files of server into the app container path
+    volumes:
+      - './jenkins_home:/var/jenkins_home'
