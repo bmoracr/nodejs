@@ -1,4 +1,2 @@
 #To set tha folders that docker will ignore
 server/node_modules
-jenkins_home/*
-!jenkins_home/.gitkeep
