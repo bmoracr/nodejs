@@ -12,13 +12,16 @@ services:
     build: .
     #point external port 5000 to 3000 internal(container) port
     ports:
-      - "80:3000"
+      - "8080:3000"
+      - "3000:3000"
     #To connect server service with database service 
     links:
       - database
     #Runtime copy all files of server into the app container path
     volumes:
       - ./server:/usr/src/app
+    networks:
+      - server
     # logging:
     #   driver: none 
   #Seccond services called "database"
@@ -30,6 +33,8 @@ services:
     #point external port 27018 to 27017 internal(container) port
     ports:
       - "27018:27017"
+    networks:
+      - server
     #To hide all mongodb/database services los
     # logging:
     #   driver: none 
@@ -38,12 +43,16 @@ services:
     #To set container name
     container_name: jenkins
     # To knows the workdir for jenkins builded
-    build:
-      context: .
+    build: .
     #point external port 50000 to 50000 internal(container) port
     ports:
-      - 8080:8080
-      - 50000:50000
+      - '80:8080'
+      - '50000:50000'
     #Runtime copy all files of server into the app container path
     volumes:
       - './jenkins_home:/var/jenkins_home'
+    networks:
+      - server
+
+networks:
+    server:
