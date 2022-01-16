@@ -1,5 +1,3 @@
-#Set what jenkins version use
-FROM jenkins/jenkins:lts
 #Set what node version use
 FROM node:17-alpine
 #Creates /usr/src/app path container inside (-p) create the folders if it dosent exists
@@ -14,7 +12,7 @@ RUN yarn install
 COPY server/. ./
 #Shows actual image/app port will use
 EXPOSE 3000
-# Run the command to start node in production
-# CMD [ "npm", "start" ]
 # Run the command to start nodemon on dev
+# CMD [ "npm", "start"]
 CMD [ "npm", "run", "dev" ]
+# CMD [ "npm", "run", "test" ]

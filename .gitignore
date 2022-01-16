@@ -1,2 +1,5 @@
 jenkins_home/*
 !jenkins_home/.gitkeep
+
+database/*
+!database/.gitkeep

@@ -1,7 +1,8 @@
 #To set the current docker-compose sintax that will use
-version: '3'
+version: '3.1'
 #To put set all services inside
 services:
+
   #First service called "server"
   server:
     #To set container name
@@ -22,37 +23,29 @@ services:
       - ./server:/usr/src/app
     networks:
       - server
+    #To hide all nodejs/server logs
     # logging:
     #   driver: none 
+
+
   #Seccond services called "database"
   database:
     #To set container name
     container_name: database
     #To set an image of the service that docker will install and use
     image: mongo
+    command: mongod --quiet
+    volumes:
+      - ./database:/data/db
     #point external port 27018 to 27017 internal(container) port
     ports:
       - "27018:27017"
+    restart: always
     networks:
       - server
-    #To hide all mongodb/database services los
-    # logging:
-    #   driver: none 
-  #Third service called "jenkins"
-  jenkins:
-    #To set container name
-    container_name: jenkins
-    # To knows the workdir for jenkins builded
-    build: .
-    #point external port 50000 to 50000 internal(container) port
-    ports:
-      - '80:8080'
-      - '50000:50000'
-    #Runtime copy all files of server into the app container path
-    volumes:
-      - './jenkins_home:/var/jenkins_home'
-    networks:
-      - server
+    #To hide all mongodb/database logs
+    logging:
+      driver: none 
 
 networks:
     server:
